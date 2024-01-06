@@ -33,8 +33,9 @@ fn display_help() {
 fn display_todo(t: &mut Vec<Task>) {
     if t.is_empty() {
         println!("empty list");
+        return;
     } else {
-        println!("display todo {:?}", t);
+        println!("display todo {:#?}", t);
     }
 }
 
@@ -49,7 +50,6 @@ fn parse_arg(arg: Vec<&str>, t: &mut Vec<Task>) {
                 // Adding the todo list with the new task
                 add_new_task(t, new_task);
                 display_todo(t);
-                println!("new {}", new_task);
             } else {
                 println!("please provide a new name to the task");
             }
