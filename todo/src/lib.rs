@@ -24,8 +24,12 @@ fn parse_arg(arg: Vec<&str>, t: &mut Vec<Task>) {
                 // Adding the todo list with the new task
                 add_new_task(t, new_task);
                 display_todo(t);
+            } else {
+                println!("please provide a new name to the task");
             }
         }
+
+        "show" => display_todo(t),
         _ => println!("empty command"),
     };
 }
