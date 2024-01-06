@@ -34,8 +34,13 @@ fn display_todo(t: &mut Vec<Task>) {
     if t.is_empty() {
         println!("empty list");
         return;
-    } else {
-        println!("display todo {:#?}", t);
+    }
+
+    for item in t {
+        println!(
+            "{}: name: {}, done:{}",
+            item.task_id, item.task, item.done_status
+        );
     }
 }
 
