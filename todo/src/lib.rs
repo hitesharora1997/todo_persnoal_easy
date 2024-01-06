@@ -2,7 +2,7 @@ use std::process::exit;
 #[warn(unused_variables, dead_code)]
 #[derive(Debug)]
 pub struct Task {
-    task_id: u32,
+    task_id: u64,
     task: String,
     done_status: bool,
 }
@@ -23,7 +23,7 @@ fn add_new_task(_t: &mut Vec<Task>, n_task: &str) {
 }
 
 fn remove_task(t: &mut Vec<Task>, n_task: u64) {
-    unimplemented!()
+    t.retain(|task| task.task_id == n_task)
 }
 
 fn display_help() {
@@ -62,9 +62,9 @@ fn parse_arg(arg: Vec<&str>, t: &mut Vec<Task>) {
 
         "show" => display_todo(t),
 
-        "delete" => match arg[1].parse::<u64>() {
+        "delete" => match &arg[1].parse::<u64>() {
             Ok(value) => {
-                remove_task(t, value);
+                remove_task(t, *value);
             }
             Err(message) => eprintln!("Unable to delete the task {}", message.to_string()),
         },
