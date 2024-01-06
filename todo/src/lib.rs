@@ -1,3 +1,5 @@
+use std::{os::unix::process, process::exit};
+
 #[warn(dead_code)]
 #[derive(Debug)]
 pub struct Task {
@@ -50,6 +52,8 @@ fn parse_arg(arg: Vec<&str>, t: &mut Vec<Task>) {
             }
             Err(message) => eprintln!("Unable to delete the task {}", message.to_string()),
         },
+
+        "exit" => exit(0),
 
         "help" | _ => {
             display_help();
