@@ -18,7 +18,7 @@ fn runpromt(t: &mut Vec<Task>) {
             .expect("Cannot read line");
 
         let args: Vec<&str> = input.split_whitespace().collect();
-        println!("{:?}", args);
+        println!("print the input args: {:?}", args);
 
         todo::run(args, t);
     }
