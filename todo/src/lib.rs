@@ -1,6 +1,5 @@
-use std::{os::unix::process, process::exit};
-
-#[warn(dead_code)]
+use std::process::exit;
+#[warn(unused_variables, dead_code)]
 #[derive(Debug)]
 pub struct Task {
     task_id: u32,
@@ -8,9 +7,19 @@ pub struct Task {
     done_status: bool,
 }
 
-fn add_new_task(t: &mut Vec<Task>, n_task: &str) {
-    let id_no: u64 = (t.len() + 1).try_into().unwrap();
-    dbg!(id_no);
+fn add_new_task(_t: &mut Vec<Task>, n_task: &str) {
+    // to convert the length in u64 we used try_into methods
+    let id_no = (_t.len() + 1).try_into().unwrap();
+    let task = Task {
+        task: n_task.to_string(),
+        task_id: id_no,
+        done_status: false,
+    };
+
+    // Pushing new task to the vec of struct
+    _t.push(task);
+
+    println!("{} added to the todo list", n_task);
 }
 
 fn remove_task(t: &mut Vec<Task>, n_task: u64) {
@@ -30,12 +39,12 @@ fn display_todo(t: &mut Vec<Task>) {
 }
 
 fn parse_arg(arg: Vec<&str>, t: &mut Vec<Task>) {
-    dbg!(t.len());
     let command = arg[0];
 
     match command {
         "add" => {
             if let Some(val) = arg.get(1) {
+                // New tak is the one captured by arg.get
                 let new_task = *val;
                 // Adding the todo list with the new task
                 add_new_task(t, new_task);
