@@ -3,8 +3,8 @@ use std::io::{stdout, Write};
 
 use todo::Task;
 
-fn runpromt(t: &mut Vec<Task>) {
-    // Keep running in a roop like while
+fn run_prompt(t: &mut Vec<Task>) {
+    // Keep running in a loop like while
     loop {
         let mut stdout = stdout();
 
@@ -29,5 +29,5 @@ fn main() {
     let mut todo: Vec<Task> = Vec::new();
 
     // Mutable Borrowing the todo vector
-    runpromt(&mut todo);
+    run_prompt(&mut todo);
 }

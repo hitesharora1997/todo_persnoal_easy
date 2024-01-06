@@ -9,7 +9,8 @@ pub struct Task {
 }
 
 fn add_new_task(t: &mut Vec<Task>, n_task: &str) {
-    unimplemented!()
+    let id_no: u64 = (t.len() + 1).try_into().unwrap();
+    dbg!(id_no);
 }
 
 fn remove_task(t: &mut Vec<Task>, n_task: u64) {
@@ -29,6 +30,7 @@ fn display_todo(t: &mut Vec<Task>) {
 }
 
 fn parse_arg(arg: Vec<&str>, t: &mut Vec<Task>) {
+    dbg!(t.len());
     let command = arg[0];
 
     match command {
