@@ -1,17 +1,29 @@
 #[warn(dead_code)]
 #[derive(Debug)]
 pub struct Task {
-    task_Id: u32,
+    task_id: u32,
     task: String,
-    done_Status: bool,
+    done_status: bool,
 }
 
-fn add_new_task(t: &mut Vec<Task>, nTask: &str) {
+fn add_new_task(t: &mut Vec<Task>, n_task: &str) {
+    unimplemented!()
+}
+
+fn remove_task(t: &mut Vec<Task>, n_task: u64) {
+    unimplemented!()
+}
+
+fn display_help() {
     unimplemented!()
 }
 
 fn display_todo(t: &mut Vec<Task>) {
-    println!("display todo {:?}", t);
+    if t.is_empty() {
+        println!("empty list");
+    } else {
+        println!("display todo {:?}", t);
+    }
 }
 
 fn parse_arg(arg: Vec<&str>, t: &mut Vec<Task>) {
@@ -31,7 +43,18 @@ fn parse_arg(arg: Vec<&str>, t: &mut Vec<Task>) {
         }
 
         "show" => display_todo(t),
-        _ => println!("in _ empty command"),
+
+        "delete" => match arg[1].parse::<u64>() {
+            Ok(value) => {
+                remove_task(t, value);
+            }
+            Err(message) => eprintln!("Unable to delete the task {}", message.to_string()),
+        },
+
+        "help" | _ => {
+            display_help();
+            println!("in _ empty command")
+        }
     };
 }
 
