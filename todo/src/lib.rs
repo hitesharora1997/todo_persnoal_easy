@@ -27,7 +27,45 @@ fn remove_task(t: &mut Vec<Task>, n_task: u64) {
 }
 
 fn display_help() {
-    unimplemented!()
+    let help = " Welcome to the todo_list application. 
+        structure of query: 
+            command [arguments] 
+
+        supported commands: 
+            add - Add a new task to the todo list, followed by a new task string. The task string should NOT be space separated. 
+
+                usage: >add task_string
+
+            show - Display the todo list 
+                
+                usage: >show
+
+            delete - delete a task from the todo list, based on the task id provided by the user in the prompt. 
+
+                usage: >delete task_id
+
+            update - change the name of a task, followed by an integer number task id. 
+
+                usage: >update task_id new_task_string 
+
+            done - change the done status of a task from false to true, followed by an integer number task id. 
+                
+                usage: >done task_id 
+
+            exit- exit the program. 
+                
+                usage: >exit
+
+            help - display this help message. 
+                
+                usage: >help 
+        
+        arguments: 
+            task_id: the unique id assigned to each task. 
+
+            task_string: the string for the task provided by the user. ";
+
+    println!("{}", help);
 }
 
 fn display_todo(t: &mut Vec<Task>) {
@@ -62,12 +100,18 @@ fn parse_arg(arg: Vec<&str>, t: &mut Vec<Task>) {
 
         "show" => display_todo(t),
 
-        "delete" => match &arg[1].parse::<u64>() {
-            Ok(value) => {
-                remove_task(t, *value);
+        "delete" => {
+            if let Some(id_str) = arg.get(1) {
+                match id_str.parse::<u64>() {
+                    Ok(value) => {
+                        remove_task(t, value);
+                    }
+                    Err(message) => eprintln!("Unable to delete the task {}", message),
+                }
+            } else {
+                println!("please provide a task_id to delete");
             }
-            Err(message) => eprintln!("Unable to delete the task {}", message.to_string()),
-        },
+        }
 
         "exit" => exit(0),
 
